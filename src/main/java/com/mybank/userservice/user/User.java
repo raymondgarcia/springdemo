@@ -1,8 +1,5 @@
 package com.mybank.userservice.user;
 
-import de.mkammerer.argon2.Argon2;
-import de.mkammerer.argon2.Argon2Factory;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -25,6 +23,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Table(name="users")
 @EntityListeners(AuditingEntityListener.class)
+@Validated
 public class User {
 
     @Id

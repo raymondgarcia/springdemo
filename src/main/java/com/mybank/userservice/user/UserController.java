@@ -1,16 +1,18 @@
 package com.mybank.userservice.user;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/api/v1/users/")
 public class UserController {
+
+    Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private UserService service;
@@ -18,6 +20,7 @@ public class UserController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserResponse create(@Valid @RequestBody UserRequest userRequest) {
+        logger.info("creating user");
         User user = transform(userRequest);
         User response = service.create(user);
         return UserResponse.builder()
@@ -38,30 +41,4 @@ public class UserController {
         user.setPhones(userRequest.getPhones());
         return user;
     }
-
-    @PutMapping("{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public User update(@Valid @RequestBody User user, @PathVariable UUID id) {
-        return service.update(id, user);
-    }
-
-    @GetMapping("{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public User get(@PathVariable UUID id) {
-        User response = service.get(id);
-        response.getPhones();
-        return response;
-    }
-
-    @DeleteMapping("{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable UUID id) {
-        service.delete(id);
-    }
-
-    @GetMapping("/")
-    public List<User> list() {
-        return service.list();
-    }
-
 }

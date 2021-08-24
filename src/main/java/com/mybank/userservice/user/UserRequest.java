@@ -22,9 +22,8 @@ public class UserRequest {
     private String email;
 
     @NotNull
-    @Pattern(regexp = "^((?=.*[0-9]){2})(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$",
-            message = "password no cumple con los requerimientos: Una\n" +
-                    "Mayúscula, letras minúsculas, y dos números)")
+    @Pattern(regexp = "^((?=.*[0-9]){2})(?=.*[a-z])(?=.*[A-Z]).{4,20}$",
+            message = "password no cumple con los requerimientos: Una Mayúscula, letras minúsculas, y dos números")
     private String password;
 
     private Set<Phone> phones;
